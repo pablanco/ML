@@ -1,0 +1,46 @@
+{
+  "name": "ml_test",
+  "version": "1.0.0",
+  "description": "Test for ML",
+  "main": "ls",
+  "scripts": {
+    "start": "PORT=1234 react-scripts start"
+  },
+  "author": "Pablo Blanco",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "bulma": "^0.8.0",
+    "parcel": "^1.12.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "components": "^0.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

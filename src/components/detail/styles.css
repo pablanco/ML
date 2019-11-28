@@ -1,0 +1,35 @@
+.productContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    background-color: var(--bg-light-color);
+    padding:var(--content-padding);
+    margin: 0;
+    width: 94%;
+}
+.productContainer .top{
+    flex-direction: column;
+    background-color: rgb(247, 175, 175);
+    height: auto;
+}
+.productContainer .top .image{
+    flex-direction: column;
+    border-radius: 4px;
+    width: 300px;
+    height: auto;
+    flex-grow: 1;
+}
+.productContainer .top .data{
+    flex-direction: column;
+    flex-grow: 8;
+}
+.productContainer .bottom{
+    flex-direction: column;
+    background-color: rgb(195, 255, 237);
+    height: auto;
+}
+
+
+
+

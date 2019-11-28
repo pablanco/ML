@@ -1,0 +1,44 @@
+/* CSS VARIABLES */
+
+:root {
+	
+	--header-height: 64px;
+	--bg-color: #EEEEEE;
+	--bg-light-color: #FFFFFF;
+	--header-bg-color: #FFE600;
+	--content-padding:  0 2% 0 2%;
+
+	--black-dark-color:#333333;
+	--grey-dark-color:#666666;
+	--grey-light-color:#999999;
+
+	--font-small:12px;
+	--font-mid:14px;
+	--font-big:18px;
+	--font-large:24px;
+
+	--divider-small:16px;
+	--divider-big:32px;
+
+}
+
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-color);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--bg-color);
+	overflow-y: scroll;
+}
