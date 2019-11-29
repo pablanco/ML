@@ -7,10 +7,12 @@ const SERVER_PORT = 3000;
 const API_URL = 'https://api.mercadolibre.com/';
 const SEARCH_API_EP =  `${API_URL}sites/MLA/search?q=`;
 const DETAIL_API_EP =  `${API_URL}items/`;
+const LIMIT  = 4;
+const OFFSET = 0;
 
 // Logg
 app.use(function (req, res, next) {
-    console.log(`Request | ${req.originalUrl} | `, Date.now());
+    console.log(`Request | ${req.originalUrl} | `, new Date());
     next();
 });
 
@@ -28,31 +30,40 @@ app.get('/api/items', function (req, res) {
         res.status(404).send({ error: 'Ingrese un dato a buscar' });
     }
 
+    const offset = (req.query.offset ? req.query.offset : OFFSET);
+
     var options = {
-        uri: `${SEARCH_API_EP}${req.query.q}`,
+        uri: `${SEARCH_API_EP}${req.query.q}&limit=${LIMIT}&offset=${offset}`,
         json: true
     };
 
     rp(options)
     .then(data => {
 
-        var response = [];
-        //console.log(data.results);
-        response = Object.values(data.results).map(
-            r => {
+        if(!data){
+            res.status(404).send({ error: 'No se encontraron resultados' });
+        }
+
+        var items = [];
+        items = Object.values(data.results).map(
+            result => {
                 return {
-                    id: r.id,
-                    title: r.title,
-                    price: r.price,
-                    thumbnail: r.thumbnail,
-                    state_name: r.address.state_name,
-                    condition: r.condition,
-                    currency_id: r.currency_id
+                    id: result.id,
+                    title: result.title,
+                    price: result.price,
+                    thumbnail: result.thumbnail,
+                    state_name: result.address.state_name,
+                    condition: result.condition,
+                    currency_id: result.currency_id,
+                    category_id: result.category_id,
+                    author: result.seller,
+                    free_shipping : result.shipping.free_shipping
                 };
                 
             }
         );
-        res.send(response);
+        console.log(items);
+        res.send({paging: data.paging, items: items, categories:data.available_filters[0].values});
     })
     .catch( err => {
         res.status(400).send({ error: err });
@@ -72,22 +83,26 @@ app.get('/api/items/:id', function (req, res) {
     };
 
     rp(options)
-    .then(r => {
+    .then(result => {
 
-        var response = {
-                id: r.id,
-                title: r.title,
-                price: r.price,
-                currency: r.currency_id,
-                thumbnail: r.thumbnail,
-                state_name: r.state_name,
-                condition: r.condition,
-                free_shipping : r.shipping.free_shipping,
-                sold_quantity: r.sold_quantity,
-                description: r.description
-            };
-        
-        res.send(response);
+        if(!result){
+            res.status(404).send({ error: 'No se encontraron resultados' });
+        }
+
+        var item = {
+            id: result.id,
+            title: result.title,
+            price: result.price,
+            currency: result.currency_id,
+            thumbnail: result.thumbnail,
+            state_name: result.state_name,
+            condition: result.condition,
+            free_shipping : result.shipping.free_shipping,
+            sold_quantity: result.sold_quantity,
+            description: result.description
+        };
+    
+        res.send(item);
     })
     .catch( err => {
         res.status(400).send({ error: err });

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import config from 'config';
 import './styles.css';
 
-const API_URL = 'http://localhost:3000/api/items/'
-
 class Detail extends Component {
+    
     state = {
         id: '',
         productInfo: {}
@@ -12,24 +12,27 @@ class Detail extends Component {
 
     componentWillMount() {
         const { productId } = this.props.match.params;
-        console.log('++'  + productId);
-        this.getInfo(productId);
-
+        this.getProduct(productId);
     }
 
-    getInfo = (id) => {
-        axios.get(`${API_URL}${id}`)
-            .then(({ data }) => {
-                console.log(data);
-                this.setState(() => ({ productInfo: data, productId: id }));
-            })
+    getProduct = (id) => {
+        this.props.loading(true);
+        axios.get(`${config.API_URL}items/${id}`)
+        .then(({ data }) => {
+            this.setState(() => ({ productInfo: data, productId: id }));
+            this.props.loading(false);
+        }).catch(
+            error => {
+                this.props.loading(false);
+            }
+        );
     }
 
     render() {
         return (
             <div className='productContainer'>
                 <div className='top'>
-                    <img alt='' className='image' src={this.state.productInfo.thumbnail} />
+                    <img title={this.state.productInfo.title} className='image' src={this.state.productInfo.thumbnail} />
                     <div className='data'>
                         <h2>{this.state.productInfo.title}</h2>
                     </div>

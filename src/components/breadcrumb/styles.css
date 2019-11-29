@@ -1,0 +1,8 @@
+.breadCrumbItem{
+    list-style: none;
+}
+ol {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
