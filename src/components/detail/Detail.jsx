@@ -32,7 +32,9 @@ class Detail extends Component {
         return (
             <div className='productContainer'>
                 <div className='top'>
-                    <img alt={this.state.productInfo.title} className='image' src={this.state.productInfo.thumbnail} />
+                    <div className='image'>
+                        <img alt={this.state.productInfo.title} src={this.state.productInfo.thumbnail} />
+                    </div>
                     <div className='data'>
                         <span className='info'>{this.state.productInfo.condition} - {this.state.productInfo.sold_quantity} vendidos</span>
                         <span className='title'>{this.state.productInfo.title}</span>

@@ -19,7 +19,7 @@ const BreadcrumbItem = ({ children, ...props }) => (
     children = children.reduce((acc, child, index) => {
       const notLast = index < lastIndex
       if (notLast) {
-        acc.push(child, '/')
+        acc.push(child, ' > ')
       } else {
         acc.push(child)
       }

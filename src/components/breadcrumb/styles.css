@@ -1,9 +1,13 @@
 .breadCrumbItem{
     list-style: none;
+    text-decoration: none;
+    color: var(--grey-dark-color);
+    margin-right: 5px;
+    margin-left: 5px;
 }
 ol {
     list-style: none;
     display: flex;
     align-items: center;
-    font-size: var(--font-mid);
+    font-size: var(--font-mid-x1);
 }

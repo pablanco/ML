@@ -37,6 +37,8 @@ app.get('/api/items', function (req, res) {
         json: true
     };
 
+    console.log(`Request ML API | ${options.uri} | `, new Date());
+
     rp(options)
     .then(data => {
 
@@ -45,7 +47,6 @@ app.get('/api/items', function (req, res) {
         }
 
         var items = [];
-        console.log(data);
         items = Object.values(data.results).map(
             result => {
                 return {
@@ -54,8 +55,8 @@ app.get('/api/items', function (req, res) {
                     price: result.price,
                     thumbnail: result.thumbnail,
                     state_name: result.address.state_name,
-                    condition: result.condition,
-                    currency_id: result.currency_id,
+                    condition: (result.condition == 'new' ? 'Nuevo' : 'Usado'),
+                    currency_id: (result.currency_id == 'ARS' ? '$' : 'U$S'),
                     category_id: result.category_id,
                     author: result.seller,
                     free_shipping : result.shipping.free_shipping
@@ -63,7 +64,6 @@ app.get('/api/items', function (req, res) {
                 
             }
         );
-        // console.log(items);
         res.send({paging: data.paging, items: items, categories:data.available_filters[0].values});
     })
     .catch( err => {
@@ -78,12 +78,13 @@ app.get('/api/items/:id', function (req, res) {
         res.status(404).send({ error: 'Debe establecer la id del item a buscar' });
     }
 
+    var item;
     var options = {
         uri: `${DETAIL_API_EP}${req.params.id}`,
         json: true
     };
-    
-    var item;
+
+    console.log(`Request ML API | ${options.uri} | `, new Date());
 
     rp(options)
     .then(result => {
@@ -91,15 +92,14 @@ app.get('/api/items/:id', function (req, res) {
         if(!result){
             res.status(404).send({ error: 'No se encontraron resultados' });
         }
-
         item = {
             id: result.id,
             title: result.title,
             price: result.price,
-            currency_id: result.currency_id,
-            thumbnail: result.thumbnail,
+            currency_id: (result.currency_id == 'ARS' ? '$' : 'U$S'),
+            thumbnail: (result.pictures.length > 0 ? result.pictures[0].url : result.thumbnail),
             state_name: result.state_name,
-            condition: result.condition,
+            condition: (result.condition == 'new' ? 'Nuevo' : 'Usado'),
             free_shipping : result.shipping.free_shipping,
             sold_quantity: result.sold_quantity
         };

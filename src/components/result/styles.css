@@ -1,3 +1,14 @@
+.resultContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 94%;
+}
+.resultContainer ul{
+    margin:0;
+    padding: 0;
+}
 .item{
     cursor: pointer;
     flex: 1;
@@ -5,8 +16,6 @@
     flex-direction: row;
     background-color: var(--bg-light-color);
     padding:var(--content-padding);
-    margin: 0;
-    width: 94%;
     border-bottom: 1px solid var(--bg-color);
     color: var(--black-dark-color);
 }
@@ -14,25 +23,32 @@
     flex-direction: column;
     border-radius: 4px;
     width: 180px;
+    max-width: 180px;
     height: 180px;
     margin: var(--divider-small);
 }
 .item .data{
     display: flex;
-    float: 1;
     flex-direction: column;
+    flex-grow: 4;
+    align-self: center;
 }
 .item .dataExtra{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     align-self: center;
-    justify-content: center;
 }
 .item .dataExtra span{
     align-items: center;
     justify-content: center;
     font-size: var(--font-small);
+}
+.item .price{
+    font-size: var(--font-large);
+    font-weight: normal;
+    display: flex;
+    flex-direction: row;
 }
 .item .freeShipping{
     display: flex;
@@ -42,10 +58,11 @@
     height: 18px;
     background-image: url("../../assets/ic_shipping.png");
     background-repeat: no-repeat;
+    margin: 8px 0 0 10px;
 }
-.item .price{
-    font-size: var(--font-large);
-    font-weight: normal;
+.item .price span{
+    display: flex;
+    flex-direction: column;
 }
 .item .title{
     font-size: var(--font-big);
