@@ -5,4 +5,5 @@ ol {
     list-style: none;
     display: flex;
     align-items: center;
+    font-size: var(--font-mid);
 }

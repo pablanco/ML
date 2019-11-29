@@ -69,11 +69,14 @@ class Result extends Component {
     const options = this.state.results.map(r => (
 
       <li onClick={() => this.onProductClicked(r.id)} className={'item'} key={r.id}>
-        <img title={r.title} className='image' src={r.thumbnail} />
+        <img alt={r.title} className='image' src={r.thumbnail} />
         <div className='data'>
-          <h2>{r.currency_id} {r.price}</h2>
-          <div title='envio gratis' className='freeShipping' style={{ display: r.free_shipping ? 'block': 'none' }}></div>
-          <h3>{r.title}</h3>
+          <div className='price'>
+            <span>{r.currency_id} {r.price}</span>
+            <div title='envio gratis' className='freeShipping' style={{ display: r.free_shipping ? 'block': 'none' }}></div>
+          </div>
+          
+          <span className='title'>{r.title}</span>
           <span>{r.condition}</span>
         </div>
         <div className='dataExtra'>

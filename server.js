@@ -45,6 +45,7 @@ app.get('/api/items', function (req, res) {
         }
 
         var items = [];
+        console.log(data);
         items = Object.values(data.results).map(
             result => {
                 return {
@@ -62,7 +63,7 @@ app.get('/api/items', function (req, res) {
                 
             }
         );
-        console.log(items);
+        // console.log(items);
         res.send({paging: data.paging, items: items, categories:data.available_filters[0].values});
     })
     .catch( err => {
@@ -81,6 +82,8 @@ app.get('/api/items/:id', function (req, res) {
         uri: `${DETAIL_API_EP}${req.params.id}`,
         json: true
     };
+    
+    var item;
 
     rp(options)
     .then(result => {
@@ -89,19 +92,27 @@ app.get('/api/items/:id', function (req, res) {
             res.status(404).send({ error: 'No se encontraron resultados' });
         }
 
-        var item = {
+        item = {
             id: result.id,
             title: result.title,
             price: result.price,
-            currency: result.currency_id,
+            currency_id: result.currency_id,
             thumbnail: result.thumbnail,
             state_name: result.state_name,
             condition: result.condition,
             free_shipping : result.shipping.free_shipping,
-            sold_quantity: result.sold_quantity,
-            description: result.description
+            sold_quantity: result.sold_quantity
+        };
+        
+        options = {
+            uri: `${DETAIL_API_EP}${req.params.id}/description`,
+            json: true
         };
     
+        return rp(options)
+    })
+    .then(result => {
+        item.description = result.plain_text;
         res.send(item);
     })
     .catch( err => {

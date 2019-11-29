@@ -32,13 +32,17 @@ class Detail extends Component {
         return (
             <div className='productContainer'>
                 <div className='top'>
-                    <img title={this.state.productInfo.title} className='image' src={this.state.productInfo.thumbnail} />
+                    <img alt={this.state.productInfo.title} className='image' src={this.state.productInfo.thumbnail} />
                     <div className='data'>
-                        <h2>{this.state.productInfo.title}</h2>
+                        <span className='info'>{this.state.productInfo.condition} - {this.state.productInfo.sold_quantity} vendidos</span>
+                        <span className='title'>{this.state.productInfo.title}</span>
+                        <span className='price'>{this.state.productInfo.currency_id} {this.state.productInfo.price}</span>
+                        <button className="button" onClick={this.onInputChange}>Comprar</button>
                     </div>
                 </div>
                 <div className='bottom'>
-                    <p>{this.state.productInfo.title}</p>
+                    <h2>Descripción del producto</h2>
+                    <p>{this.state.productInfo.description}</p>
                 </div>
 
             </div>
